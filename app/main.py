@@ -1,12 +1,13 @@
 import sys
 import os
 
+paths = os.environ.get('PATH').split(os.pathsep)
+
 def type(cmd):
     command = cmd.split('type ')[1]
-    paths = os.environ.get('PATH').split(':')
     if command in commands:
         sys.stdout.write(f'{command} is a shell builtin\n')
-        return 
+        return
     for path in paths:
         full_path = os.path.join(path, command)
         if os.path.isfile(full_path):
@@ -31,6 +32,13 @@ def execute(cmd):
         if cmd.startswith(extract):
             commands[extract](cmd)
             return
+    if cmd and ' ' in cmd:
+        for path in paths:
+            full_path = os.path.join(path, cmd.split(' ')[1])
+            if os.path.isfile(full_path):
+                os.system(full_path)
+                return
+    sys.stdout.write(f'{cmd}: command not found\n')
 
 def main():
     while True:
@@ -39,11 +47,8 @@ def main():
 
         cmd = input()
 
-        if any(cmd.startswith(x)for x in commands.keys()):
-            execute(cmd)
-        else:
-            sys.stdout.write(f'{cmd}: command not found\n')
-
+        # if any(cmd.startswith(x)for x in commands.keys()):
+        execute(cmd)
 
 if __name__ == "__main__":
     main()
