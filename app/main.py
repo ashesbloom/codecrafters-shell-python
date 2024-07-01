@@ -1,5 +1,12 @@
 import sys
 
+def type(cmd):
+    command = cmd.split('type ')[1]
+    if command in commands:
+        sys.stdout.write(f'{command} is a shell builtin\n')
+    else:
+        sys.stdout.write(f'{command}: not found\n')
+
 def echo(cmd):
     sys.stdout.write(cmd.split('echo ')[1] + '\n')
 
@@ -8,7 +15,7 @@ def exiting(cmd):
     return exit(0)
 
 
-commands = {'echo': echo, 'exit 0': exiting}
+commands = {'echo': echo, 'exit': exiting, 'type': type}
 
 
 def execute(cmd):
