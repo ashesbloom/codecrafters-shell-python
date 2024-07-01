@@ -6,6 +6,7 @@ def type(cmd):
     paths = os.environ.get('PATH').split(':')
     if command in commands:
         sys.stdout.write(f'{command} is a shell builtin\n')
+        return 
     for path in paths:
         full_path = os.path.join(path, command)
         if os.path.isfile(full_path):
