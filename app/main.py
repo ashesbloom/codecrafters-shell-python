@@ -7,12 +7,12 @@ def type(cmd):
     if command in commands:
         sys.stdout.write(f'{command} is a shell builtin\n')
     for path in paths:
-        # print(path)
-        if os.path.exists(f'{path}/{command}'):
-            sys.stdout.write((f'{path}/{command}\n'))
-        else:
-            sys.stdout.write(f'{command}: not found\n')
+        full_path = os.path.join(path, command)
+        if os.path.isfile(full_path):
+            sys.stdout.write(full_path + '\n')
             return
+    sys.stdout.write(f'{command}: not found\n')
+
 
 def echo(cmd):
     sys.stdout.write(cmd.split('echo ')[1] + '\n')
