@@ -1,18 +1,18 @@
 import sys
 
-
 def main():
     while True:
         sys.stdout.write("$ ")
         sys.stdout.flush()
 
         # Wait for user input
-        userInput = input()
+        cmd = input()
 
-        sys.stdout.write(f'{userInput}: command not found\n')
+        if cmd.startswith("exit"):
+            exit(0)
+        else:
+            sys.stdout.write(f'{cmd}: command not found\n')
 
-        if userInput == 'exit':
-            break
 
 if __name__ == "__main__":
     main()
