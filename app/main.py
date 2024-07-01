@@ -11,5 +11,8 @@ def main():
 
         sys.stdout.write(f'{userInput}: command not found\n')
 
+        if userInput == 'exit':
+            break
+
 if __name__ == "__main__":
     main()
