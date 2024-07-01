@@ -1,11 +1,18 @@
 import sys
+import os
 
 def type(cmd):
     command = cmd.split('type ')[1]
+    paths = os.environ.get('PATH').split(':')
     if command in commands:
         sys.stdout.write(f'{command} is a shell builtin\n')
-    else:
-        sys.stdout.write(f'{command}: not found\n')
+    for path in paths:
+        # print(path)
+        if os.path.exists(f'{path}/{command}'):
+            sys.stdout.write((f'{path}/{command}\n'))
+        else:
+            sys.stdout.write(f'{command}: not found\n')
+            return
 
 def echo(cmd):
     sys.stdout.write(cmd.split('echo ')[1] + '\n')
