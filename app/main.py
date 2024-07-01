@@ -1,7 +1,7 @@
 import sys
 import os
 
-paths = os.environ.get('PATH').split(os.pathsep)
+paths = os.environ.get('PATH').split(':')
 
 def type(cmd):
     command = cmd.split('type ')[1]
