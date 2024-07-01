@@ -33,10 +33,12 @@ def execute(cmd):
             commands[extract](cmd)
             return
     if cmd and ' ' in cmd:
+        parts = cmd.split()
+        executable = parts[0]
         for path in paths:
-            full_path = os.path.join(path, cmd.split(' ')[1])
+            full_path = os.path.join(path,executable)
             if os.path.isfile(full_path):
-                os.system(full_path)
+                os.system(cmd)
                 return
     sys.stdout.write(f'{cmd}: command not found\n')
 
